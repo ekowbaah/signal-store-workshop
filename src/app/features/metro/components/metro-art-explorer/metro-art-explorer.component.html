@@ -1,0 +1,40 @@
+<div class="h-full flex flex-col gap-4 p-6">
+  <div class="self-end">
+    <app-add-metro-art></app-add-metro-art>
+  </div>
+
+<hlm-toaster />
+  <div class="grid grid-cols-3 gap-4">
+    @for (art of allArt$ | async; track art.id) {
+
+    <div class="">
+      <section hlmCard>
+        <div hlmCardHeader>
+          <h3 hlmCardTitle>{{ art.stationName }}</h3>
+          <p hlmCardDescription>Uploaded by: {{ art.uploaderName }}</p>
+        </div>
+        <div hlmCardContent class="grid gap-4">
+          <div
+            class="flex flex-col items-center p-4 border border-border space-x-4 rounded-md"
+          >
+            <img
+              [src]="art.imageUrl"
+              alt="Art Image"
+              class="w-full h-full object-cover"
+            />
+            <p>{{ art.artDescription }}</p>
+          </div>
+        </div>
+        <div hlmCardFooter class="justify-between">
+          <button class="w-full" hlmBtn (click)="likeArt(art.id)">
+            <ng-icon hlm size="sm" class="mr-2" name="lucideHeart" />
+            Like
+          </button>
+        </div>
+      </section>
+    </div>
+
+    }
+  </div>
+</div>
+

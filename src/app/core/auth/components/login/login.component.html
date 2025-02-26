@@ -1,0 +1,22 @@
+<div class="flex justify-center items-center h-screen">
+  <section class="w-80" hlmCard>
+    <div hlmCardHeader>
+      <h3 hlmCardTitle>Signup</h3>
+      <p hlmCardDescription>Stockholm Metro Art Explorer</p>
+    </div>
+    <p hlmCardContent>
+      <label class="block" hlmLabel>
+        Name
+        <input
+          [(ngModel)]="name"
+          class="mt-1.5 w-full"
+          placeholder="Please enter your name"
+          hlmInput
+        />
+      </label>
+    </p>
+    <div hlmCardFooter class="justify-end">
+      <button hlmBtn (click)="register()">Create</button>
+    </div>
+  </section>
+</div>

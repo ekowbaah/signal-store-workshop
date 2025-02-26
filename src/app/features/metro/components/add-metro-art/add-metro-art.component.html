@@ -1,0 +1,54 @@
+<hlm-dialog #dialogRef>
+  <button id="edit-profile" brnDialogTrigger hlmBtn>Add Metro Art</button>
+  <hlm-dialog-content class="sm:max-w-[425px]" *brnDialogContent="let ctx">
+    <hlm-dialog-header>
+      <h3 hlmDialogTitle>Add Metro Art</h3>
+      <p hlmDialogDescription>
+        You can add a new metro art by filling the form below
+      </p>
+    </hlm-dialog-header>
+    <div class="py-4 grid gap-4">
+      <div class="flex flex-col gap-4">
+        <div>
+          <input
+            id="file"
+            class="col-span-3"
+            hlmInput
+            (change)="onFileSelected($event)"
+            type="file"
+          />
+        </div>
+
+        <div class="flex flex-col gap-4">
+          <label hlmLabel>Please select a station</label>
+          <brn-select
+            class="inline-block"
+            placeholder="Select a station"
+            [(ngModel)]="stationId"
+          >
+            <hlm-select-trigger class="w-56">
+              <hlm-select-value />
+            </hlm-select-trigger>
+            <hlm-select-content>
+              @for (station of stations$ | async; track station.id) {
+              <hlm-option [value]="station.id">{{ station.name }}</hlm-option>
+              }
+            </hlm-select-content>
+          </brn-select>
+        </div>
+        <div>
+          <label hlmLabel for="name">Description</label>
+          <input
+            hlmInput
+            id="name"
+            [(ngModel)]="description"
+            class="col-span-3"
+          />
+        </div>
+      </div>
+    </div>
+    <hlm-dialog-footer>
+      <button hlmBtn (click)="onSubmit()">Save art</button>
+    </hlm-dialog-footer>
+  </hlm-dialog-content>
+</hlm-dialog>

@@ -1,11 +1,14 @@
+
+@let allArts = artsStore.arts();
+
 <div class="h-full flex flex-col gap-4 p-6">
   <div class="self-end">
     <app-add-metro-art></app-add-metro-art>
   </div>
 
-<hlm-toaster />
+  <hlm-toaster />
   <div class="grid grid-cols-3 gap-4">
-    @for (art of allArt$ | async; track art.id) {
+    @for (art of allArts; track art.id) {
 
     <div class="">
       <section hlmCard>
@@ -37,4 +40,3 @@
     }
   </div>
 </div>
-

@@ -1,3 +1,4 @@
+@let store = metrosStore;
 <hlm-dialog #dialogRef>
   <button id="edit-profile" brnDialogTrigger hlmBtn>Add Metro Art</button>
   <hlm-dialog-content class="sm:max-w-[425px]" *brnDialogContent="let ctx">
@@ -30,7 +31,7 @@
               <hlm-select-value />
             </hlm-select-trigger>
             <hlm-select-content>
-              @for (station of stations$ | async; track station.id) {
+              @for (station of store.stations(); track station.id) {
               <hlm-option [value]="station.id">{{ station.name }}</hlm-option>
               }
             </hlm-select-content>

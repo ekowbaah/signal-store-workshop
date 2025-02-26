@@ -1,6 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 
-export const loadUserFromStorage = createAction('[Auth] Load User From Storage');
+export const loadUserFromStorage = createAction(
+  '[Auth] Load User From Storage'
+);
 
 export const registerUser = createAction(
   '[Auth] Register User',

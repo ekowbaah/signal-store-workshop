@@ -1,9 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AddMetroArtComponent } from '../add-metro-art/add-metro-art.component';
-import { selectAllArt } from '../../store/art.selectors';
-import { likeArt, loadAllArt } from '../../store/art.actions';
 import { Store } from '@ngrx/store';
-import { AsyncPipe } from '@angular/common';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import {
   HlmCardContentDirective,
@@ -19,14 +16,15 @@ import { provideIcons } from '@ng-icons/core';
 import { selectUser } from '../../../../store/auth/auth.selectors';
 import { SupabaseService } from '../../../../core/auth/services/supabase.service';
 import { HlmToasterComponent } from '../../../../../../libs/ui/ui-sonner-helm/src/lib/hlm-toaster.component';
-import { NgxSonnerToaster, toast } from 'ngx-sonner';
+import { toast } from 'ngx-sonner';
 import { selectLatestNotification } from '../../../../store/notifications/notifications.selectors';
+import { ArtsStore } from '../../store/arts.store';
+import { MetrosStore } from '../../store/metro.store';
 
 @Component({
   selector: 'app-metro-art-explorer',
   imports: [
     AddMetroArtComponent,
-    AsyncPipe,
     HlmButtonDirective,
     HlmCardContentDirective,
     HlmCardDescriptionDirective,
@@ -36,20 +34,18 @@ import { selectLatestNotification } from '../../../../store/notifications/notifi
     HlmCardTitleDirective,
     HlmIconDirective,
     HlmToasterComponent,
-    NgxSonnerToaster,
   ],
-  providers: [provideIcons({ lucideHeart })],
+  providers: [provideIcons({ lucideHeart }), MetrosStore, ArtsStore],
   templateUrl: './metro-art-explorer.component.html',
   styleUrl: './metro-art-explorer.component.scss',
 })
 export class MetroArtExplorerComponent implements OnInit {
   store = inject(Store);
-  allArt$ = this.store.select(selectAllArt);
   supabaseService = inject(SupabaseService);
+  artsStore = inject(ArtsStore);
   protected readonly toast = toast;
 
   ngOnInit(): void {
-    this.store.dispatch(loadAllArt());
     this.supabaseService.listenForLikes();
     this.store.select(selectLatestNotification).subscribe((notification) => {
       const fakeUserData = localStorage.getItem('fakeUser');
@@ -70,7 +66,7 @@ export class MetroArtExplorerComponent implements OnInit {
       if (user) {
         const userId = user.id;
         const userName = user.name;
-        this.store.dispatch(likeArt({ artId, userId, userName }));
+        this.artsStore.likeArt({ artId, userId, userName });
       }
     });
   }

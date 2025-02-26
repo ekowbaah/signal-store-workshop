@@ -9,9 +9,9 @@ import { FakeAuthService } from '../../core/auth/services/fake-auth.service';
 
 @Injectable()
 export class AuthEffects {
-    actions$= inject(Actions);
-    supabaseService= inject(SupabaseService);
-    fakeAuthService= inject(FakeAuthService);
+  actions$ = inject(Actions);
+  supabaseService = inject(SupabaseService);
+  fakeAuthService = inject(FakeAuthService);
 
   registerUser$ = createEffect(() =>
     this.actions$.pipe(
@@ -19,7 +19,9 @@ export class AuthEffects {
       switchMap(({ name }) => {
         const userId = `user_${Math.random().toString(36).substr(2, 9)}`;
         return from(this.supabaseService.saveUser(userId, name)).pipe(
-          map(() => {  return AuthActions.registerUserSuccess({ id: userId, name })}),
+          map(() => {
+            return AuthActions.registerUserSuccess({ id: userId, name });
+          }),
           catchError(() => of(AuthActions.logoutUser()))
         );
       })

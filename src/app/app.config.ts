@@ -3,13 +3,11 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
-import { metroReducer } from './features/metro/metro.reducer';
-import { MetroEffects } from './features/metro/store/metro.effects';
+
 import { provideEffects } from '@ngrx/effects';
 import { authReducer } from './store/auth/auth.reducer';
 import { AuthEffects } from './store/auth/auth.effects';
-import { artReducer } from './features/metro/store/art.reducer';
-import { ArtEffects } from './features/metro/store/art.effects';
+
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { isDevMode } from '@angular/core';
 import { notificationsReducer } from './store/notifications/notifications.reducer';
@@ -18,12 +16,10 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideStore({
-      metro: metroReducer,
       auth: authReducer,
-      art: artReducer,
       notifications: notificationsReducer,
     }),
-    provideEffects(MetroEffects, AuthEffects, ArtEffects),
+    provideEffects(AuthEffects),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
       logOnly: !isDevMode(), // Restrict extension to log-only mode

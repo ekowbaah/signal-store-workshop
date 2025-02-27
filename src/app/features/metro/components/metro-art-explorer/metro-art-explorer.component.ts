@@ -36,7 +36,6 @@ import { selectLatestNotification } from '../../../../store/notifications/notifi
     HlmCardTitleDirective,
     HlmIconDirective,
     HlmToasterComponent,
-    NgxSonnerToaster,
   ],
   providers: [provideIcons({ lucideHeart })],
   templateUrl: './metro-art-explorer.component.html',

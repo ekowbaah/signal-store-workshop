@@ -3,7 +3,7 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
-import { metroReducer } from './features/metro/metro.reducer';
+
 import { MetroEffects } from './features/metro/store/metro.effects';
 import { provideEffects } from '@ngrx/effects';
 import { authReducer } from './store/auth/auth.reducer';
@@ -13,6 +13,7 @@ import { ArtEffects } from './features/metro/store/art.effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { isDevMode } from '@angular/core';
 import { notificationsReducer } from './store/notifications/notifications.reducer';
+import { metroReducer } from './features/metro/store/metro.reducer';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),

@@ -1,9 +1,14 @@
 import { createReducer, on } from '@ngrx/store';
 import * as MetroActions from './metro.actions';
-;
+export interface MetroStation {
+  id: number;
+  name: string;
+  opened: number;
+  grade: 'Elevated' | string;
+}
 
 export interface MetroState {
-  stations: any[];
+  stations: MetroStation[];
   loading: boolean;
   error: string | null;
 }
@@ -16,7 +21,7 @@ const initialState: MetroState = {
 
 export const metroReducer = createReducer(
   initialState,
-  on(MetroActions.loadStations, state => ({
+  on(MetroActions.loadStations, (state) => ({
     ...state,
     loading: true,
   })),

@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { MetroArtExplorerComponent } from './metro-art-explorer.component';
 
@@ -8,7 +10,8 @@ describe('MetroArtExplorerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MetroArtExplorerComponent]
+      imports: [MetroArtExplorerComponent],
+      providers: [provideMockStore(), provideRouter([])]
     })
     .compileComponents();
 

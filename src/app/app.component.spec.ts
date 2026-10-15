@@ -1,10 +1,17 @@
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { provideMockStore } from '@ngrx/store/testing';
 import { AppComponent } from './app.component';
+import { selectIsAuthenticated } from './store/auth/auth.selectors';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
+      providers: [
+        provideRouter([]),
+        provideMockStore({ selectors: [{ selector: selectIsAuthenticated, value: false }] }),
+      ],
     }).compileComponents();
   });
 
@@ -14,16 +21,11 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'signal-store-workshop' title`, () => {
+  it('should expose authentication state from the store', (done) => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('signal-store-workshop');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, signal-store-workshop');
+    fixture.componentInstance.isAuthenticated$.subscribe((authenticated) => {
+      expect(authenticated).toBeFalse();
+      done();
+    });
   });
 });
